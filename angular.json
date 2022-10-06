@@ -1,0 +1,227 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "cli": {
+    "packageManager": "yarn"
+  },
+  "newProjectRoot": "projects",
+  "projects": {
+    "ekibiz-auth-feat-lib": {
+      "projectType": "library",
+      "root": "projects/ekibiz-auth-feat-lib",
+      "sourceRoot": "projects/ekibiz-auth-feat-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ekibiz-auth-feat-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ekibiz-auth-feat-lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ekibiz-auth-feat-lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run",
+          "options": {
+            "tsConfig": "tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ekibiz-auth-feat-lib/**/*.ts",
+              "projects/ekibiz-auth-feat-lib/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "shared-auth-lib": {
+      "projectType": "library",
+      "root": "projects/shared-auth-lib",
+      "sourceRoot": "projects/shared-auth-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/shared-auth-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/shared-auth-lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/shared-auth-lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run",
+          "options": {
+            "tsConfig": "tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/shared-auth-lib/**/*.ts",
+              "projects/shared-auth-lib/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "shared-components-lib": {
+      "projectType": "library",
+      "root": "projects/shared-components-lib",
+      "sourceRoot": "projects/shared-components-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/shared-components-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/shared-components-lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/shared-components-lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run",
+          "options": {
+            "tsConfig": "tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/shared-components-lib/**/*.ts",
+              "projects/shared-components-lib/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ekibiz-app": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/ekibiz-app",
+      "sourceRoot": "projects/ekibiz-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ekibiz-app",
+            "index": "projects/ekibiz-app/src/index.html",
+            "main": "projects/ekibiz-app/src/main.ts",
+            "polyfills": "projects/ekibiz-app/src/polyfills.ts",
+            "tsConfig": "projects/ekibiz-app/tsconfig.app.json",
+            "assets": [
+              "projects/ekibiz-app/src/favicon.ico",
+              "projects/ekibiz-app/src/assets"
+            ],
+            "styles": [
+              "projects/ekibiz-app/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/ekibiz-app/src/environments/environment.ts",
+                  "with": "projects/ekibiz-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "ekibiz-app:build:production"
+            },
+            "development": {
+              "browserTarget": "ekibiz-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ekibiz-app:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run",
+          "options": {
+            "polyfills": [
+              "polyfills.ts"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "assets": [
+              "projects/ekibiz-app/src/favicon.ico",
+              "projects/ekibiz-app/src/assets"
+            ],
+            "styles": [
+              "projects/ekibiz-app/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ekibiz-app/**/*.ts",
+              "projects/ekibiz-app/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
